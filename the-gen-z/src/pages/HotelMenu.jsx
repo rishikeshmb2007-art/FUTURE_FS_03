@@ -139,6 +139,7 @@ const HotelMenu = () => {
           {hotelItems.map((item) => (
             <FoodCard 
               key={item.id}
+              id={item.id}
               theme="hotel"
               name={item.name}
               description={item.description}

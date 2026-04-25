@@ -1,33 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useCart } from '../context/CartContext';
+import CartModal from './CartModal';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
+  const { cartItems } = useCart();
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-black/20 backdrop-blur-md border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        
-        {/* Brand Logo */}
-        <Link to="/" className="text-2xl font-bold tracking-widest text-white">
-          THE GEN-<span className="text-hotel-glow">Z</span>
-        </Link>
-
-        {/* Navigation Links */}
-        <div className="hidden md:flex gap-8 text-sm font-semibold tracking-wider text-gray-300">
-          <Link to="/" className="hover:text-white transition-colors duration-300">HOME</Link>
-          <Link to="/hotel-menu" className="hover:text-hotel-glow transition-colors duration-300">MEALS</Link>
-          <Link to="/cafe-menu" className="hover:text-cafe-glow transition-colors duration-300">CAFE</Link>
+    <>
+      <nav className="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5 px-4 py-4">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          
+          {/* Logo */}
+          <Link to="/" className="text-xl md:text-2xl font-black text-white italic tracking-tighter">
+            THE GEN-Z
+          </Link>
+          
+          {/* Navigation Links */}
+          <div className="hidden md:flex items-center gap-8">
+            <Link to="/" className="text-gray-400 hover:text-white transition-colors text-sm font-medium">HOME</Link>
+            <Link to="/hotel-menu" className="text-gray-400 hover:text-white transition-colors text-sm font-medium">HOTEL</Link>
+            <Link to="/cafe-menu" className="text-gray-400 hover:text-white transition-colors text-sm font-medium">CAFE</Link>
+            <Link to="/reserve" className="text-orange-500 hover:text-orange-400 transition-colors text-sm font-bold border border-orange-500/30 px-4 py-1.5 rounded-full">BOOK TABLE</Link>
+          </div>
+          
+          {/* Cart Icon */}
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => setIsCartOpen(true)}
+              className="relative p-2.5 bg-white/5 rounded-full border border-white/10 hover:border-hotel-glow transition-all group"
+            >
+              <span className="text-xl group-hover:scale-110 block transition-transform">🛒</span>
+              {cartItems.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-hotel-glow text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-[0_0_10px_rgba(255,69,0,0.5)]">
+                  {cartItems.length}
+                </span>
+              )}
+            </button>
+          </div>
         </div>
+      </nav>
 
-        {/* CTA Button */}
-        <Link 
-          to="/reserve" 
-          className="px-6 py-2 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-colors duration-300"
-        >
-          Reserve Table
-        </Link>
-        
-      </div>
-    </nav>
+      {/* Cart Modal for Billing */}
+      <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+    </>
   );
 };
 
