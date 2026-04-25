@@ -4,7 +4,11 @@ import cors from 'cors';
 import Reservation from './models/Reservation.js';
 
 const app = express();
+import dotenv from 'dotenv'; // Import pannanum
+dotenv.config(); // Config pannanum
 
+const MONGO_URI = process.env.MONGO_URI; // Password ippo hidden!
+const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());
 app.use(cors());
