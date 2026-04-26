@@ -11,7 +11,7 @@ const Admin = () => {
 
   const fetchBookings = async () => {
     try {
-      const response = await axios.get('https://future-fs-03-adl6.onrender.com'); // Backend URL
+      const response = await axios.get('https://future-fs-03-adl6.onrender.com/api/reservations'); // Backend URL
       setBookings(response.data);
       setLoading(false);
     } catch (error) {
