@@ -7,17 +7,19 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (item) => {
     setCartItems((prev) => {
-      // Find logic-a fix panniyachu - checking unique ID
-      const existingItemIndex = prev.findIndex((cartItem) => cartItem.id === item.id);
+      // Exact-ah ID match aagudha nu check panrom
+      const existingItem = prev.find((cartItem) => cartItem.id === item.id);
 
-      if (existingItemIndex > -1) {
-        // Orey item thirumba click panna quantity increase aagum
-        const updatedCart = [...prev];
-        updatedCart[existingItemIndex].quantity += 1;
-        return updatedCart;
+      if (existingItem) {
+        // Item already cart-la irundha, quantity-a mattum mathu
+        return prev.map((cartItem) =>
+          cartItem.id === item.id 
+            ? { ...cartItem, quantity: cartItem.quantity + 1 } 
+            : cartItem
+        );
       }
       
-      // Puthu item click panna correctly list-la add aagum
+      // Puthu ID ulla item vandha, adha array-la add pannu
       return [...prev, { ...item, quantity: 1 }];
     });
   };
