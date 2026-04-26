@@ -19,7 +19,7 @@ const Reservations = () => {
     e.preventDefault();
     try {
       // Backend URL check pannikonga (5000 port)
-      const response = await axios.post('http://localhost:5000/api/reservations', formData);
+      const response = await axios.post('https://future-fs-03-adl6.onrender.com', formData);
       alert("✅ " + response.data.message);
       setFormData({ name: '', email: '', date: '', time: '', guests: 1 }); // Clear form
     } catch (err) {

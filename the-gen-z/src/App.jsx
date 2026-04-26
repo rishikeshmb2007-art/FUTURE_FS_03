@@ -9,9 +9,6 @@ import CafeMenu from './pages/CafeMenu';
 import Reservations from './pages/Reservations';
 import Admin from './pages/Admin'; // Mela import pannunga
 
-// Inside <Routes>
-<Route path="/admin-gz-2026" element={<Admin />} />
-
 function App() {
   return (
     <CartProvider> {/* Context Provider must wrap everything */}
